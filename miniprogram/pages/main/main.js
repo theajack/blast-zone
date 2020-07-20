@@ -1,4 +1,4 @@
-const {default: Icon} = require("../../util/icon");
+const {getIcon, SINGLE_LENGTH, MAX_LENGTH} = require("../../util/icon");
 
 // miniprogram/pages/main/main.js
 Page({
@@ -17,23 +17,44 @@ Page({
   onLoad: function (options) {
   },
 
+  reinitIcons(){
+    for(let i = 0; i< SINGLE_LENGTH;i++){
+      this.icons.push(getIcon({
+        icons: this.icons,
+        ctx: this.ctx,
+        swidth: this.data.width,
+        sheight: this.data.height,
+        // src: '../../images/icon_01.png',
+      }))
+      if(this.icons.length > MAX_LENGTH){
+        this.icons.shift().disble();
+      }
+    }
+  },
+
   initCanvas(){
+    this.icons = [];
     this.ctx = wx.createCanvasContext('canvas');
     this.nx = 3;
     this.ny = 7;
     this.pwidth = this.data.width / this.nx;
     this.pheight = this.data.height / this.ny;
-    this.icons = [];
-    for(let i = 0; i< 5;i++){
-      this.icons.push(new Icon({
-        ctx: this.ctx,
-        swidth: this.data.width,
-        sheight: this.data.height,
-        src: '../../images/icon.png',
-        width: 100,
-        height: 100
-      }))
-    }
+    this.reinitIcons();
+    
+    // this.ctx.translate(50, 50);
+    // this.ctx.rotate(30 *  Math.PI / 180); 
+    // this.ctx.drawImage('../../images/icon.png', -50, -50, 100, 100);
+    // this.ctx.rotate(-30 *  Math.PI / 180); 
+    // this.ctx.translate(-50, -50);
+    
+    // this.ctx.translate(150, 150);
+    // this.ctx.rotate(60 *  Math.PI / 180); 
+    // this.ctx.drawImage('../../images/icon.png', -50, -50, 100, 100);
+    // this.ctx.translate(-150, -150);
+    // this.ctx.rotate(-60 *  Math.PI / 180); 
+
+    // this.ctx.draw();
+
     this.loopAnimation();
   },
 
@@ -41,7 +62,11 @@ Page({
     this.interval = setInterval(()=>{
       this.move();
       this.drawFrame();
-    }, 20)
+    }, 10)
+    // this.interval = setInterval(()=>{
+    //   this.move();
+    //   this.drawFrame();
+    // }, 1000)
   },
 
   move(){
@@ -53,15 +78,19 @@ Page({
     // this.pheight = this.data.height / this.ny;
   },
 
+  clearRect(){
+
+  },
+
   drawFrame(){
     let c1 = 'rgba(255,255,255,0.2)', c2 = 'rgba(0,0,0,0.2)'
-    this.ctx.clearRect(0, 0, this.data.width, this.data.height)
-    for(let x = 0;x<this.nx;x++){
-      for(let y=0;y<this.ny;y++){
-        this.ctx.fillStyle = ((x+y)%2 === 0)?c1:c2;
-        this.ctx.fillRect(x*this.pwidth, y*this.pheight, this.pwidth, this.pheight);
-      }
-    }
+    // this.ctx.clearRect(0, 0, this.data.width, this.data.height)
+    // for(let x = 0;x<this.nx;x++){
+    //   for(let y=0;y<this.ny;y++){
+    //     this.ctx.fillStyle = ((x+y)%2 === 0)?c1:c2;
+    //     this.ctx.fillRect(x*this.pwidth, y*this.pheight, this.pwidth, this.pheight);
+    //   }
+    // }
     this.icons.forEach(icon=>{
       icon.draw();
     })
