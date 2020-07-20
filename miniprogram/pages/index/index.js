@@ -5,21 +5,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    width: 0,
+    height: 0,
+    text:'收集音乐碎片\n创作属于你的独一无二的音乐\n整个SKP商场播放你的作品\n为喜欢的人告白\n为父母庆生\n给闺蜜惊喜\n由你精彩'
   },
+    jumpToMainPage() {
+//  print('2387r8hfiyuwhfuw');
+ },
+   initCanvas(){
 
+ },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+     var aa = wx.getFileSystemManager().readFileSync("images/homePage.png","base64");
+     console.log(aa);
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    wx.getSystemInfo({
+      success: res => {
+        this.setData({
+          width: res.windowWidth,
+          height: res.windowHeight,
+        }, ()=>{
+          this.initCanvas();
+        });
+      }
+    });
   },
 
   /**
