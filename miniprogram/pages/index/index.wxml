@@ -4,7 +4,7 @@
   <view class="container">
   <view class="page-body">
     <view class="page-section page-section-spacing">
-      <image class="logimage-style" src="" mode="scaleToFill"></image>
+      <image class="logimage-style" src="../../images/logo_icon.png" mode="scaleToFill"></image>
      <text class="bigtitle-style">{{'TRAVELS'}}</text>
       <view class="text-box" scroll-y="true" scroll-top="{{scrollTop}}">
         <text class="text-style">{{text}}</text>
