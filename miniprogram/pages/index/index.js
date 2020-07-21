@@ -38,10 +38,27 @@ Page({
   },
     jumpToMainPage() {
      console.log("点击了按钮");
+     wx.checkSession({
+       success: (res) => {
+        //存在登陆态
+         console.log("在登录状态");
+       },
+       fail:function(){
+      //不存在登陆态
+      console.log("不在登录状态");
+      onLogin();
+       }
+     })
     wx.navigateTo({
       url: '../main/main',
     })
  },
+
+ onLogin : function (options) {
+  wx.login({
+    timeout: 2,
+  })
+},
    initCanvas(){
 
  },
