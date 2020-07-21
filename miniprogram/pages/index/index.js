@@ -1,4 +1,5 @@
 // miniprogram/pages/index/index.js
+
 Page({
 
   /**
@@ -10,7 +11,10 @@ Page({
     text:'收集音乐碎片\n创作属于你的独一无二的音乐\n整个SKP商场播放你的作品\n为喜欢的人告白\n为父母庆生\n给闺蜜惊喜\n由你精彩'
   },
     jumpToMainPage() {
-//  print('2387r8hfiyuwhfuw');
+     console.log("点击了按钮");
+    wx.navigateTo({
+      url: '../main/main',
+    })
  },
    initCanvas(){
 
