@@ -1,8 +1,13 @@
 /* miniprogram/pages/index/index.wxss */
 
+.headView-style {
+  width: 1;
+  height: 250rpx;
+}
 .logimage-style {
-width: 100;
-height: 100;
+width: 200rpx;
+height: 200rpx;
+justify-content: center;
 }
 
 .bigtitle-style {
@@ -16,6 +21,13 @@ height: 100;
   font-size: 30rpx;
   justify-content: center;
   align-items: center;
+}
+
+.container {
+  align-items: center;
+  box-sizing: border-box;
+  text-align: center;
+
 }
 
 .button-style {

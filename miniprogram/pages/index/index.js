@@ -19,8 +19,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     var aa = wx.getFileSystemManager().readFileSync("images/homePage.png","base64");
-     console.log(aa);
+    //  var aa = wx.getFileSystemManager().readFileSync("images/homePage.png","base64");
+    //  console.log(aa);
   },
 
   /**
