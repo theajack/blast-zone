@@ -1,8 +1,8 @@
 <!--miniprogram/pages/index/index.wxml-->
 <view class='background-view' style='height:{{height}}px'>
   <!-- <canvas canvas-id='canvas' style='width:{{width}}px;height:{{height}}px'/> -->
-  <view class="container">
-  <view class="page-body">
+  <view class="container" style='height:{{height}}px'>
+  <!-- <view class="page-body"> -->
   <view class="headView-style"> </view>
   <image class="logimage-style" src="../../images/logo_icon.png" mode="aspectFit"></image>
     <view class="page-section page-section-spacing">
@@ -10,9 +10,9 @@
       <view class="text-box" scroll-y="true" scroll-top="{{scrollTop}}">
         <text class="text-style">{{text}}</text>
       </view>
-      <button class="button-style"  bindtap="jumpToMainPage">立即创作</button>
     </view>
-  </view>
+     <button class="button-style"  bindtap="jumpToMainPage">立即创作</button>
+  <!-- </view> -->
 </view>
 </view>
 
