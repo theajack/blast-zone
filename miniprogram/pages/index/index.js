@@ -6,9 +6,35 @@ Page({
    * 页面的初始数据
    */
   data: {
+    touchS : [0,0],
+    touchE : [0,0],
     width: 0,
     height: 0,
     text:'收集音乐碎片\n创作属于你的独一无二的音乐\n整个SKP商场播放你的作品\n为喜欢的人告白\n为父母庆生\n给闺蜜惊喜\n由你精彩'
+  },
+
+  touchStart: function(e){
+    // console.log(e.touches[0].pageX)
+    let sx = e.touches[0].pageX
+    let sy = e.touches[0].pageY
+    this.data.touchS = [sx,sy]
+  },
+  touchMove: function(e){
+    let sx = e.touches[0].pageX;
+    let sy = e.touches[0].pageY;
+    this.data.touchE = [sx, sy]
+  },
+  touchEnd: function(e){
+    let start = this.data.touchS
+    let end = this.data.touchE
+    console.log(start)
+    console.log(end)
+    if(start[1] < end[1] - 50){
+      console.log('下滑')
+      wx.navigateTo({
+        url: '../main/main',
+      })
+    }
   },
     jumpToMainPage() {
      console.log("点击了按钮");

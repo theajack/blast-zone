@@ -1,5 +1,9 @@
 /* miniprogram/pages/index/index.wxss */
-
+.btn {
+  width: 40rpx;
+  height: 40rpx;
+  color: red;
+}
 .headView-style {
   width: 1;
   height: 250rpx;
