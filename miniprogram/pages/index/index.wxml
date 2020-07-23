@@ -11,11 +11,7 @@
         <text class="text-style">{{text}}</text>
       </view>
     </view>
-    <!-- <view class='btn'  bindtouchstart='touchStart' bindtouchmove='touchMove' bindtouchend='touchEnd'>
-         OK
-        </view> -->
-     <button class="button-style"  bindtap="jumpToMainPage">立即创作</button>
-  <!-- </view> -->
 </view>
+<button class="button-style"  open-type="getUserInfo" bindtap="jumpToMainPage">立即创作</button>
 </view>
 
