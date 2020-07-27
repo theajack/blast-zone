@@ -14,17 +14,6 @@ Page({
 
   jumpToMainPage() {
      console.log("点击了按钮");
-    //  wx.checkSession({
-    //    success: (res) => {
-    //     //存在登陆态
-    //      console.log("在登录状态");
-    //    },
-    //    fail:function(){
-    //   //不存在登陆态
-    //   console.log("不在登录状态");
-    //   onLogin();
-    //    }
-    //  })
 
     wx.getSetting({
       success(res) {
@@ -38,14 +27,18 @@ Page({
                          url: '../main/main',
                     })
             },
-            fail: function (err) {
-              console.log("拒绝授权");
-            } 
           });
         } else {
           console.log("没有获取到userInfo的设置,弹框获取用户授权");
           wx.authorize({
             scope: 'scope.userInfo',
+            // success () {
+            //   //已经同意了不用访问了
+            //   console.log("已经同意了不用访问了");
+            //     wx.navigateTo({
+            //              url: '../main/main',
+            //         })
+            // },
           });
         }
       },
