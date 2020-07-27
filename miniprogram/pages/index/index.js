@@ -1,7 +1,5 @@
 // miniprogram/pages/index/index.js
 
-import { Player } from '../../util/audio'
-let player = new Player()
 Page({
 
   /**
@@ -57,11 +55,6 @@ Page({
     })
   },
 
-  tapMusic () {
-    let idx = Math.ceil(Math.random() * 20)
-    player.playTouchMusic(idx)
-  },
-
  onLogin : function (options) {
   wx.login({
     timeout: 2,
@@ -77,7 +70,6 @@ Page({
   onLoad: function (options) {
     //  var aa = wx.getFileSystemManager().readFileSync("images/homePage.png","base64");
     //  console.log(aa);
-    player.createBgMusic()
   },
 
   /**

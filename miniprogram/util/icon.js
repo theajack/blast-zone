@@ -21,9 +21,9 @@ function getId(){
     return id;
 }
 
-export function getIcon({ctx, icons, swidth, sheight, src, width, height = 1}){
+export function getIcon({ctx, icons, swidth, sheight, width, height, index}){
     if(icon_pool.length < MAX_POOL_LENGTH){
-        let icon = new Icon({ctx, icons, swidth, sheight, src, width, height});
+        let icon = new Icon({ctx, icons, swidth, sheight, width, height, index});
         icon_pool.push(icon)
         return icon;
     }else{
@@ -32,29 +32,29 @@ export function getIcon({ctx, icons, swidth, sheight, src, width, height = 1}){
         if(pool_index>=100){
             pool_index = 0;
         }
-        icon.reinit();
+        icon.reinit(index);
         return icon;
     }
     
 }
 
 class Icon{
-    constructor({ctx, icons, swidth, sheight, src, width = 1, height = 1}){
+    constructor({ctx, icons, swidth, sheight, width = 1, height = 1, index}){
         this.ctx = ctx;
         this.shw = swidth/2;
         this.shh = sheight/2;
         this.step = 40;
         this.icons = icons;
-        this.setIcon({src, width, height})
-        this.reinit();
+        this.setIcon({width, height})
+        this.reinit(index);
     }
 
-    setIcon({src, width, height}){
-        this.src = src;
+    setIcon({width, height}){
         this.rate = width/height;
     }
 
-    reinit(){
+    reinit(index){
+        this.index = index;
         this.id = getId();
         this.disabled = false;
         this.maxHeight = random(50, 80);
@@ -84,7 +84,7 @@ class Icon{
         this.pdeg = (this.endDeg - this.startDeg) / this.step;
         this.deg = this.startDeg;
 
-        this.src = `../../images/icon_0${random(1,6)}.png`;
+        this.src = `../../images/icon_0${index%7+1}.png`;
     }
 
     reinitEndPos(){

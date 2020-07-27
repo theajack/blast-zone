@@ -1,6 +1,9 @@
 <!--miniprogram/pages/main/main.wxml-->
 <view class='background-view' style='height:{{height}}px'>
-  <canvas canvas-id='canvas' style='width:{{width}}px;height:{{height}}px' bindtouchstart="reinitIcons"/>
+  <canvas canvas-id='canvas' style='width:{{width}}px;height:{{height}}px'
+    bindtouchstart="ontouchcanvas"
+    bindtouchmove="ontouchmovecanvas"
+    bindtouchend="ontouchendcanvas"/>
 </view>
 
 <!-- <canvas canvas-id='canvas' style='width:320px;height:504px'/> -->
