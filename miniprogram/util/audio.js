@@ -1,6 +1,6 @@
 export class Player {
   constructor () {
-    this.path = '../miniprogram/music/'
+    this.path = 'http://test.thinkinpets.com/tips-wx/template/agentsys/public/music/'
     this.range = [1, 21]
   }
 
