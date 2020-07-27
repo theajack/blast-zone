@@ -1,5 +1,7 @@
 // miniprogram/pages/index/index.js
 
+import { Player } from '../../util/audio'
+let player = new Player()
 Page({
 
   /**
@@ -12,7 +14,7 @@ Page({
     text:'收集音乐碎片\n创作属于你的独一无二的音乐\n整个SKP商场播放你的作品\n为喜欢的人告白\n为父母庆生\n给闺蜜惊喜\n由你精彩'
   },
 
-    jumpToMainPage() {
+  jumpToMainPage() {
      console.log("点击了按钮");
     //  wx.checkSession({
     //    success: (res) => {
@@ -53,7 +55,12 @@ Page({
         console.log("获取用户设置失败");
       }
     })
-   },
+  },
+
+  tapMusic () {
+    let idx = Math.ceil(Math.random() * 20)
+    player.playTouchMusic(idx)
+  },
 
  onLogin : function (options) {
   wx.login({
@@ -70,6 +77,7 @@ Page({
   onLoad: function (options) {
     //  var aa = wx.getFileSystemManager().readFileSync("images/homePage.png","base64");
     //  console.log(aa);
+    player.createBgMusic()
   },
 
   /**
@@ -83,6 +91,7 @@ Page({
           height: res.windowHeight,
         }, ()=>{
           this.initCanvas();
+
         });
       }
     });
