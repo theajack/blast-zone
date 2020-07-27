@@ -1,4 +1,29 @@
 /* miniprogram/pages/main/main.wxss */
+.share-box{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+  background-color: #eee;
+  border-radius: 5px;
+  z-index: 100;
+}
+
+.share-text{
+
+}
+.share-btn-w{
+  
+}
+.share-btn-share{
+  color:#00b26a;
+}
+.share-btn-cancel{
+  margin-top: 15px;
+  color:#888;
+}
 
 .background-view{
   background-position: center;

@@ -7,12 +7,18 @@ let unlockedPos = []
 
 let width,height;
 
+export function checkPos(index){
+    return unlockedIndex.indexOf(index) !== -1;
+}
+
 export function initMusicPos(_width, _height){
     width = _width / W_SIZE;
     height = _height / H_SIZE;
     let v = wx.getStorageSync('__music')
     if(v){
-        unlockedIndex = v.split(',');
+        unlockedIndex = v.split(',').map(item=>{
+            return parseInt(item);
+        });
     }
     unlockedIndex.forEach(index=>{
         unlockedPos.push(genePos(index));
@@ -23,9 +29,10 @@ export function saveUnlockedIndex(){
     wx.setStorageSync('__music', unlockedIndex.join(','))
 }
 
-export function addNewPos(index){
+export function addNewMusicIndex(index){
     unlockedIndex.push(index);
     unlockedPos.push(genePos(index));
+    saveUnlockedIndex();
 }
 
 function genePos(index){

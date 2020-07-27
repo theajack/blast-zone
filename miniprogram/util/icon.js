@@ -123,7 +123,7 @@ class Icon{
     }
 
     disable(){
-        this.disable = true;
+        this.disabled = true;
     }
     move(){
         if(this.disabled){
