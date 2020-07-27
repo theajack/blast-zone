@@ -1,11 +1,17 @@
 import {getIcon, SINGLE_LENGTH, MAX_LENGTH} from "../../util/icon";
 import { Player } from '../../util/audio';
 import { W_SIZE, H_SIZE, ontouch, initSize } from '../../util/touch';
-import { initMusicPos, drawPos } from '../../util/music';
+import { initMusicPos, drawPos, checkPos, addNewMusicIndex } from '../../util/music';
+import {nowDateTime} from "../../util/util";
+import {initBg, drawBg, setBg} from "../../util/bg";
+
 
 let player = new Player()
 
-// miniprogram/pages/main/main.js
+let touchIndex = -1;
+
+let datetime = null;
+
 Page({
 
   /**
@@ -13,7 +19,8 @@ Page({
    */
   data: {
     width: 0,
-    height: 0
+    height: 0,
+    showShare: false
   },
 
   /**
@@ -37,10 +44,18 @@ Page({
     ontouch(e);
   },
   reinitIcons(index){
-    wx.showShareMenu({})
-    // if(!checkPos(index)){
-    //   return;
-    // }
+    if(!checkPos(index)){
+      touchIndex = index;
+      datetime = nowDateTime();
+      this.setData({
+        showShare: true
+      })
+      return;
+    }
+    if(this.data.showShare){
+      return;
+    }
+    setBg(index);
     player.playTouchMusic(index);
     for(let i = 0; i< SINGLE_LENGTH;i++){
       this.icons.push(getIcon({
@@ -52,13 +67,11 @@ Page({
         // src: '../../images/icon_01.png',
       }))
       if(this.icons.length > MAX_LENGTH){
-        let icon = this.icons.shift()
-        if(icon){
-          try{
-            icon.disble();
-          }catch(e){
-          }
+        try{
+          this.icons[0].disble()
+        }catch(e){
         }
+        this.icons.shift()
       }
     }
   },
@@ -91,6 +104,9 @@ Page({
 
   loopAnimation(){
     this.interval = setInterval(()=>{
+      if(this.data.showShare){
+        return;
+      }
       this.move();
       this.drawFrame();
     }, 10)
@@ -99,7 +115,11 @@ Page({
     //   this.drawFrame();
     // }, 1000)
   },
-
+  cancel(){
+    this.setData({
+      showShare: false
+    })
+  },
   move(){
     this.icons.forEach(icon=>{
       icon.move();
@@ -122,7 +142,8 @@ Page({
     //     this.ctx.fillRect(x*this.pwidth, y*this.pheight, this.pwidth, this.pheight);
     //   }
     // }
-    drawPos(this.ctx, );
+    drawBg(this.ctx);
+    drawPos(this.ctx);
     this.icons.forEach(icon=>{
       icon.draw();
     })
@@ -142,9 +163,9 @@ Page({
       success: res => {
         let width = res.windowWidth;
         let height = res.windowHeight;
-
-        initSize(width, height)
-        initMusicPos(width, height)
+        initBg(width, height);
+        initSize(width, height);
+        initMusicPos(width, height);
         this.setData({
           width,
           height
@@ -160,7 +181,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if(touchIndex!==-1){
+      if(nowDateTime()-datetime < 3000){
+        wx.showToast({
+          title: '未成功分享',
+          icon: 'none',
+          duration: 2000
+        })
+      }else{
+        wx.showToast({
+          title: '分享成功，解锁一个音乐碎片',
+          icon: 'none',
+          duration: 2000
+        })
+        addNewMusicIndex(touchIndex);
+        touchIndex=-1;
+      }
+    }
   },
 
   /**
@@ -194,6 +231,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    this.cancel()
     return {
       title: '来火星音乐碎片解锁你的独家音乐吧！',
       path: '/index/index',
