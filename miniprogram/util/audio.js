@@ -19,14 +19,22 @@ export class Player {
     innerBgCtx.play()
   }
 
+  pausePreMusic (index) {
+    index = index || this.preTouch
+    this.touchMusic[this.preTouch] && this.touchMusic[this.preTouch].stop()
+    this.preTouch = null
+  }
+
   playTouchMusic (index) {
     index = (index && index >= this.range[0] && index <= this.range[1]) ? index : 1
-    this.touchMusic[index] && this.touchMusic[index].play()
-    if (this.preTouch) {
-      this.touchMusic[this.preTouch] && this.touchMusic[this.preTouch].pause()
-    }
-    if (!this.preTouch || this.preTouch && this.preTouch !== index) {
+    
+    if (!this.preTouch || this.preTouch && this.preTouch !== index ) {
       this.preTouch = index
+      this.touchMusic[index] && this.touchMusic[index].play()
+    } else {
+      this.preTouch = null
+      this.touchMusic[index] && this.touchMusic[index].stop()
+      this.touchMusic[index] && this.touchMusic[index].play()
     }
   }
 }
