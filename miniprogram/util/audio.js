@@ -1,7 +1,7 @@
 export class Player {
   constructor () {
     this.path = '../miniprogram/music/'
-    this.range = [1, 20]
+    this.range = [1, 21]
   }
 
   createBgMusic () {
