@@ -13,9 +13,9 @@ export class Player {
   }
 
   playTouchMusic (index) {
+    index = (index && index >= this.range[0] && index <= this.range[1]) ? index : 1
     this.destoryTouch()
     this.touchMusic = wx.createInnerAudioContext()
-    index = (index && index >= this.range[0] && index <= this.range[1]) ? index : 1
     this.touchMusic.src = `${this.path}${index}.m4a`
     this.touchMusic.play()
   }
