@@ -2,6 +2,7 @@ export class Player {
   constructor () {
     this.path = 'http://test.thinkinpets.com/tips-wx/template/agentsys/public/music/'
     this.range = [1, 21]
+    this.touchMusic = wx.createInnerAudioContext()
   }
 
   createBgMusic () {
@@ -14,8 +15,7 @@ export class Player {
 
   playTouchMusic (index) {
     index = (index && index >= this.range[0] && index <= this.range[1]) ? index : 1
-    this.destoryTouch()
-    this.touchMusic = wx.createInnerAudioContext()
+    // this.destoryTouch()
     this.touchMusic.src = `${this.path}${index}.m4a`
     this.touchMusic.play()
   }
