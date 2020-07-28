@@ -1,5 +1,15 @@
 import {random} from "./util";
 
+const COLORS = [
+    'rgba(247,180,9,.8)',
+    'rgba(23,181,173,.8)',
+    'rgba(20,161,244,.8)',
+    'rgba(46,209,144,.8)',
+    'rgba(234,118,129,.8)',
+    'rgba(49,126,255,.8)',
+    'rgba(253,140,80,.8)'
+]
+
 let bg = '';
 let width,height;
 let timer = 0;
@@ -73,7 +83,7 @@ class Bg{
     reinit(index){
         this.disabled = false;
         this.show = true;
-        this.color = (index>10)?'rgba(43,43,250, .8)':'rgba(250,250,250, .8)';
+        this.color = COLORS[index%7];
         this.dirc = random(0,3);
         if(this.dirc === DIRC.UP || this.dirc === DIRC.DOWN){
             this.width = width;
