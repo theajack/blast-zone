@@ -55,7 +55,7 @@ export function setBg(index){
         bgs.shift();
     }
     bgs.push(bg);
-    console.log(bgs);
+    // console.log(bgs);
 }
 
 export function drawBg(ctx){

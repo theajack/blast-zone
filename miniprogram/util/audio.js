@@ -12,11 +12,15 @@ export class Player {
   }
 
   createBgMusic () {
-    const innerBgCtx = wx.createInnerAudioContext()
-    innerBgCtx.loop = true
-    innerBgCtx.autoplay = true
-    innerBgCtx.src = `${this.path}bg.m4a`
-    innerBgCtx.play()
+    this.innerBgCtx = wx.createInnerAudioContext()
+    this.innerBgCtx.loop = true
+    this.innerBgCtx.autoplay = true
+    this.innerBgCtx.src = `${this.path}bg.m4a`
+    this.innerBgCtx.play()
+  }
+
+  stopMusic(){
+    this.innerBgCtx.stop();
   }
 
   playTouchMusic (index) {
