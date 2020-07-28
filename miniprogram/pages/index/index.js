@@ -6,46 +6,51 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    auth: false,
     width: 0,
     height: 0,
     text:'收集音乐碎片\n创作属于你的独一无二的音乐\n整个SKP商场播放你的作品\n为喜欢的人告白\n为父母庆生\n给闺蜜惊喜\n由你精彩'
   },
-
+  onGetUserInfo(){
+    this.jumpToMainPage();
+  },
   jumpToMainPage() {
-     console.log("点击了按钮");
-
-    wx.getSetting({
-      success(res) {
-        if (res.authSetting['scope.userInfo']) {
-          wx.authorize({
-            scope: 'scope.userInfo',
-            success () {
-              //已经同意了不用访问了
-              console.log("已经同意了不用访问了");
-                wx.navigateTo({
-                         url: '../main/main',
-                    })
-            },
-          });
-        } else {
-          console.log("没有获取到userInfo的设置,弹框获取用户授权");
-          wx.authorize({
-            scope: 'scope.userInfo',
-            // success () {
-            //   //已经同意了不用访问了
-            //   console.log("已经同意了不用访问了");
-            //     wx.navigateTo({
-            //              url: '../main/main',
-            //         })
-            // },
-          });
-        }
-      },
-      fail: function() {
-        console.log("获取用户设置失败");
-      }
+    wx.navigateTo({
+      url: '../main/main',
     })
+    //  console.log("点击了按钮");
+
+    // wx.getSetting({
+    //   success(res) {
+    //     if (res.authSetting['scope.userInfo']) {
+    //       wx.authorize({
+    //         scope: 'scope.userInfo',
+    //         success () {
+    //           //已经同意了不用访问了
+    //           console.log("已经同意了不用访问了");
+    //             wx.navigateTo({
+    //                      url: '../main/main',
+    //                 })
+    //         },
+    //       });
+    //     } else {
+    //       console.log("没有获取到userInfo的设置,弹框获取用户授权");
+    //       wx.authorize({
+    //         scope: 'scope.userInfo',
+    //         // success () {
+    //         //   //已经同意了不用访问了
+    //         //   console.log("已经同意了不用访问了");
+    //         //     wx.navigateTo({
+    //         //              url: '../main/main',
+    //         //         })
+    //         // },
+    //       });
+    //     }
+    //   },
+    //   fail: function() {
+    //     console.log("获取用户设置失败");
+    //   }
+    // })
   },
 
  onLogin : function (options) {
@@ -63,6 +68,14 @@ Page({
   onLoad: function (options) {
     //  var aa = wx.getFileSystemManager().readFileSync("images/homePage.png","base64");
     //  console.log(aa);
+    
+    wx.getUserInfo({
+      success: (res) => {
+        if (res.errMsg === 'getUserInfo:ok') {
+          this.setData({auth: true})
+        }
+      },
+    })
   },
 
   /**
