@@ -21,12 +21,14 @@ export class Player {
 
   playTouchMusic (index) {
     index = (index && index >= this.range[0] && index <= this.range[1]) ? index : 1
-    this.touchMusic[index] && this.touchMusic[index].play()
-    if (this.preTouch) {
-      this.touchMusic[this.preTouch] && this.touchMusic[this.preTouch].pause()
-    }
-    if (!this.preTouch || this.preTouch && this.preTouch !== index) {
+    
+    if (!this.preTouch || this.preTouch && this.preTouch !== index ) {
       this.preTouch = index
+      this.touchMusic[index] && this.touchMusic[index].play()
+    } else {
+      this.touchMusic[this.preTouch] && this.touchMusic[this.preTouch].stop()
+      this.touchMusic[index] && this.touchMusic[index].play()
+      this.preTouch = null
     }
   }
 }
