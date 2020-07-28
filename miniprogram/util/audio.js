@@ -4,6 +4,7 @@ export class Player {
     this.range = [1, 21]
     this.touchMusic = {}
     this.preTouch = null
+    this.tabTimer = null
     for (let i = 1; i <= this.range[1]; i++) {
       this.touchMusic[i] = wx.createInnerAudioContext()
       this.touchMusic[i].id = `music_${i}`
@@ -21,14 +22,48 @@ export class Player {
 
   playTouchMusic (index) {
     index = (index && index >= this.range[0] && index <= this.range[1]) ? index : 1
-    
-    if (!this.preTouch || this.preTouch && this.preTouch !== index ) {
-      this.preTouch = index
-      this.touchMusic[index] && this.touchMusic[index].play()
+    let _this = this
+    if (_this.tabTimer) {
+      clearTimeout(_this.tabTimer)
+      _this.tabTimer = null
     } else {
-      this.touchMusic[this.preTouch] && this.touchMusic[this.preTouch].stop()
-      this.touchMusic[index] && this.touchMusic[index].play()
+      _this.tabTimer = setTimeout(function () {
+        clearTimeout(_this.tabTimer)
+        _this.tabTimer = null
+        _this.touchMusic[index].stop()
+      }, 5000)
+    }
+    
+    if (!this.preTouch ) {
+      this.preTouch = index
+    } else {
+      if (this.preTouch === index) {
+        this.touchMusic[index].stop()
+      } else {
+        this.touchMusic[this.preTouch] && this.touchMusic[this.preTouch].stop()
+      }
       this.preTouch = null
     }
+    this.touchMusic[index] && this.touchMusic[index].play()
+  }
+
+  stopTouchMusic (index) {
+    if (!index) { return }
+    this.touchMusic[index].onTimeUpdate(() => {
+      let duration = this.touchMusic[index].duration
+      let currentTime = this.touchMusic[index].currentTime
+      let left = duration - currentTime
+      if (left < 2) {
+        this.touchMusic[index].volume = left
+      }
+      console.info('-- ', this.touchMusic[index].volume)
+    })
+  }
+
+  exit () {
+    for (let key in this.touchMusic) {
+      this.touchMusic[key].destory()
+    }
+    this.preTouch = null
   }
 }
