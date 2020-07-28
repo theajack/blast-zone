@@ -12,6 +12,7 @@
       </view>
     </view>
 </view>
-<button class="button-style"  open-type="getUserInfo" bindtap="jumpToMainPage">立即创作</button>
+<button wx:if='{{auth}}' class="button-style" bindtap="jumpToMainPage">立即创作</button>
+<button wx:else class="button-style" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">立即创作</button>
 </view>
 

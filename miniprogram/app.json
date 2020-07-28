@@ -1,14 +1,14 @@
 {
   "pages": [
-    "pages/main/main",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/main/main"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarBackgroundColor": "#6160df",
     "navigationBarTitleText": "火星音乐碎片",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2"

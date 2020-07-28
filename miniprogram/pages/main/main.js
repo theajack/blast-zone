@@ -27,6 +27,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.getSystemInfo({
+      success: res => {
+        let width = res.windowWidth;
+        let height = res.windowHeight;
+        initBg(width, height);
+        initSize(width, height);
+        initMusicPos(width, height);
+        this.setData({
+          width,
+          height
+        }, ()=>{
+          this.initCanvas();
+        });
+      }
+    });
+    player.createBgMusic()
   },
   ontouchcanvas(e){
     let index = ontouch(e);
@@ -159,29 +175,16 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    wx.getSystemInfo({
-      success: res => {
-        let width = res.windowWidth;
-        let height = res.windowHeight;
-        initBg(width, height);
-        initSize(width, height);
-        initMusicPos(width, height);
-        this.setData({
-          width,
-          height
-        }, ()=>{
-          this.initCanvas();
-        });
-      }
-    });
-    player.createBgMusic()
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if(touchIndex!==-1){
+    if(touchIndex!==-1 && this.data.showShare){
+      this.setData({
+        showShare: false
+      })
       if(nowDateTime()-datetime < 3000){
         wx.showToast({
           title: '未成功分享',
@@ -211,7 +214,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    player.stopMusic()
   },
 
   /**
@@ -231,7 +234,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    this.cancel()
     return {
       title: '来火星音乐碎片解锁你的独家音乐吧！',
       path: '/index/index',
