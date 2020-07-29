@@ -72,7 +72,7 @@ Page({
       return;
     }
     setBg(index);
-    player.playTouchMusic(index);
+    player.playTouchMusic(index + 1);
     for(let i = 0; i< SINGLE_LENGTH;i++){
       this.icons.push(getIcon({
         icons: this.icons,
@@ -164,11 +164,6 @@ Page({
       icon.draw();
     })
     this.ctx.draw();
-  },
-
-  tapMusic () {
-    let idx = Math.ceil(Math.random() * 20)
-    player.playTouchMusic(idx)
   },
 
   /**
