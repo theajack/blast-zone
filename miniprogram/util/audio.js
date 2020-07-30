@@ -1,6 +1,6 @@
 export class Player {
   constructor () {
-    this.path = 'http://test.thinkinpets.com/tips-wx/template/agentsys/public/music/'
+    this.path = 'http://insurance.thinkinpets.com/tips-wx/template/agentsys/public/music/'
     this.range = [1, 21]
     this.touchMusic = {}
     this.preTouch = null
@@ -60,7 +60,6 @@ export class Player {
       if (left < 2) {
         this.touchMusic[index].volume = left
       }
-      console.info('-- ', this.touchMusic[index].volume)
     })
   }
 
