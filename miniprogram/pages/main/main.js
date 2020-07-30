@@ -231,7 +231,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '来火星音乐碎片解锁你的独家音乐吧！',
-      path: '/index/index',
+      path: '/pages/index/index',
     }
   }
   
