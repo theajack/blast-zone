@@ -42,7 +42,6 @@ Page({
         });
       }
     });
-    player.createBgMusic()
   },
   ontouchcanvas(e){
     let index = ontouch(e);
@@ -132,6 +131,7 @@ Page({
     // }, 1000)
   },
   cancel(){
+    datetime = null;
     this.setData({
       showShare: false
     })
@@ -176,6 +176,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    player.createBgMusic()
     if(touchIndex!==-1 && this.data.showShare){
       this.setData({
         showShare: false
@@ -202,7 +203,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    player.stopMusic()
   },
 
   /**
